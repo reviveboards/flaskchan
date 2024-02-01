@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div>
+        <script src="/static/js/adminFE.js"></script>
+
+        <header class="mainPageHeading">
+            <div class="naming">
+                <div class="boardTitle">/admin</div>
+                <div class="boardSlogan coffeechan#motd"></div>
+            </div>
+        </header>
+
+        <main class="panels">
+            <div class="leftContent">
+                <div class="card">
+                    <span class="cardHeader">
+                        <span class="blue cardBullet"></span>
+                        <p class="cardName">Admin menu</p>
+                    </span>
+                    <div class="cardContent">
+                        <div class="adminList">
+                                <span class="adminListItem" id="bAdminListItem">
+                                    <i data-feather="menu"></i>
+                                    <a>Boards</a>
+                                </span>
+                            <span class="adminListItem" id="uAdminListItem">
+                                   <i data-feather="users"></i>
+                                    <a>Users</a>
+                                </span>
+                            <span class="adminListItem" id="mAdminListItem">
+                                    <i data-feather="slash"></i>
+                                    <a>Moderation</a>
+                                </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rightContent">
+                <div class="card">
+                    <span class="cardHeader">
+                        <span class="red cardBullet"></span>
+                        <p class="cardName" id="adminPanelHeader">Actions</p>
+                    </span>
+
+                    <div class="cardContent statistics">
+                        Some statistics
+                    </div>
+
+                    <div class="cardContent boardManager">
+                        <div class="coffeechan#categories">
+                            <button id="boardMgrCreateNewCategory">+ Create new category</button>
+                            <button id="boardMgrCreateNewBoard">+ Create new board</button>
+                        </div>
+
+                        <div class="card" id="boardMgrCreateCategoryForm" style="margin-left: 12px">
+                            <form method="get" action="/admin/createCategory" class="cardContent">
+                                <div>
+                                    <input type="text" name="name" placeholder="Category name" id="cN">
+                                </div>
+                                <button type="submit">Create category</button>
+                            </form>
+                        </div>
+
+                        <div class="card" id="boardMgrCreateBoardForm" style="margin-left: 12px">
+                            <form method="get" action="/admin/createBoard" class="cardContent">
+                                <div>
+                                    <input type="text" name="name" placeholder="Board name" id="bN">
+                                </div>
+                                <div>
+                                    <input type="text" name="description" placeholder="Board description" id="bD">
+                                </div>
+                                <div>
+                                    <input type="text" name="tag" placeholder="Board tag" id="bL">
+                                </div>
+                                <div>
+                                    <label for="bC">Board category: </label><select class="coffeechan#categoriesCombobox" name="parentCategory" id="bC"></select>
+                                </div>
+                                <!-- Unsupported for now. -->
+                                <!-- <div>
+                                    <label for="bSplash">Board header: </label><input type="file" name="header" id="bSplash">
+                                </div> -->
+                                <!-- What does this mean? -->
+                                <!-- <div class="togglers">
+                                    <span class="optionToggler">
+                                            Use CAPTCHA
+                                            <label class="switch">
+                                                <input type="checkbox">
+                                                <span class="slider round"></span>
+                                            </label>
+                                    </span>
+                                    <span class="optionToggler">
+                                            Use country flags
+                                            <label class="switch">
+                                                <input type="checkbox">
+                                                <span class="slider round"></span>
+                                            </label>
+                                    </span>
+                                    <span class="optionToggler">
+                                            NSFW board
+                                            <label class="switch">
+                                                <input type="checkbox">
+                                                <span class="slider round"></span>
+                                            </label>
+                                    </span>
+                                </div> -->
+                                <button type="submit">Create board</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="cardContent userManager">
+                        Manage users
+                    </div>
+                    <div class="cardContent banManager">
+                        Manage bans
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+{% endblock %}
+

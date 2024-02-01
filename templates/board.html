@@ -1,0 +1,211 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div>
+        <header class="mainPageHeading">
+            <div class="naming">
+                <div class="boardTitle coffeechan#boardTagSlashed"></div>
+                <div class="boardSlogan coffeechan#boardName"></div>
+            </div>
+        </header>
+
+        <div class="panels">
+            <div class="boardLeftContent">
+                <div class="card postForm">
+                        <span class="cardHeader">
+                            <span class="red cardBullet"></span>
+                            <p class="cardName">Post form</p>
+                        </span>
+                    <form method="get" action="post" class="postFormHandler">
+                        <div class="typing">
+                            <input type="text" name="postTitle" id="pH" placeholder="Title">
+                            <textarea type="text" name="postText" id="pT" placeholder="Type your text here.."
+                                      autofocus></textarea>
+
+                            <div class="functional">
+                                <input type="password" name="tripcode" id="trip" placeholder="Tripcode (unnecessary)">
+                                <button type="submit" style="padding-top: 3.75px; padding-bottom: 3.75px">Check</button>
+                            </div>
+                        </div>
+                        <div class="posting">
+                            <input type="file" name="postAttach" id="pA"> <!--TODO: Drag&drop file upload-->
+                            <progress value="10" max="100" class="postingProgress">10%</progress>
+                            <button type="submit">Post</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="postContainer coffeechan#posts">
+
+                </div>
+            </div>
+            <div class="boardRightContent">
+                <div class="card">
+                        <span class="cardHeader">
+                            <span class="blue cardBullet"></span>
+                            <p class="cardName">Board of the day</p>
+                        </span>
+                    <div class="cardContent">
+                        <div class="BoTD">
+                            <p class="BoTDName">/b/</p>
+                            <p>Posts per hour: 69</p>
+                            <p>Unique Users: 420</p>
+                            <p>Users per hour:</p>
+                        </div>
+
+                        <canvas id="pph-chart"></canvas>
+    <!--                    Script for charts. Too stupid, must be rewritten.-->
+    <!--                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>-->
+    <!--                    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-gradient"></script>-->
+    <!--                    <script>-->
+    <!--                        const ctx = document.getElementById('pph-chart');-->
+    <!--                        new Chart(ctx, {-->
+    <!--                            type: 'bar',-->
+    <!--                            data: {-->
+    <!--                                labels: ['6h', '5h', '4h', '3h', '2h', '1h'],-->
+    <!--                                datasets: [{-->
+    <!--                                    label: '',-->
+    <!--                                    data: [12, 19, 3, 5, 2, 3],-->
+    <!--                                    barThickness: 5,-->
+    <!--                                    borderRadius: 5,-->
+    <!--                                    borderWidth: 2,-->
+    <!--                                    borderColor: 'rgba(122,202,85,1)',-->
+    <!--                                    gradient: {-->
+    <!--                                        backgroundColor: {-->
+    <!--                                            axis: 'y',-->
+    <!--                                            colors: {-->
+    <!--                                                0: 'rgba(124,124,124,0.33)',-->
+    <!--                                                95: 'rgba(122,202,85,1)'-->
+    <!--                                            }-->
+    <!--                                        }-->
+    <!--                                    }-->
+    <!--                                }]-->
+    <!--                            },-->
+    <!--                            options: {-->
+    <!--                                plugins: {-->
+    <!--                                    legend: {-->
+    <!--                                        display: false,-->
+    <!--                                    },-->
+    <!--                                    scales: {-->
+    <!--                                        y: {-->
+    <!--                                            beginAtZero: true-->
+    <!--                                        }-->
+    <!--                                    },-->
+
+    <!--                                }-->
+    <!--                            },-->
+    <!--                            plugins: [-->
+    <!--                                window['chartjs-plugin-gradient']-->
+    <!--                            ]-->
+    <!--                        });-->
+    <!--                    </script>-->
+
+
+                    </div>
+                </div>
+                <div class="card">
+                        <span class="cardHeader">
+                            <span class="purple cardBullet"></span>
+                            <p class="cardName">Marked threads</p>
+                            <a class="cardNavigate">Upd. 46 sec. ago</a>
+                        </span>
+                    <div class="cardContent mTHandler">
+                        <div class="postCard markedThread">
+                                <div class="postImages mTImg">
+                                    <img src="/static/girl.jpg" alt="Post picture">
+                                </div>
+                                <div class="postTextContent mTText">
+                                    <div class="mTMenu">
+                                        <p class="newRepliesAnnouncer">+2</p>
+                                        <a class="cardNavigate">on /soc/</a>
+                                        <a class="closeBtn">
+                                            <i data-feather="x-circle"></i>
+                                        </a>
+                                    </div>
+                                    <div class="postTitle">
+                                        LOREM IPSUM! DOLOR SIT AMET.
+                                    </div>
+                                    <div class="postMessage">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras dignissim libero est, sed commodo tellus luctus a. Quisque volutpat porta mi, sit amet semper lorem tincidunt et. Curabitur est dui, tempor a nulla eu.
+                                    </div>
+                                </div>
+                                <div class="red closeBtn"></div>
+                        </div>
+
+                        <div class="postCard markedThread">
+                            <div class="postImages mTImg">
+                                <img src="/static/girl.jpg" alt="Post picture">
+                            </div>
+                            <div class="postTextContent mTText">
+                                <div class="mTMenu">
+                                    <p class="newRepliesAnnouncer">+1</p>
+                                    <a class="cardNavigate">on /a/</a>
+                                    <a class="closeBtn">
+                                        <i data-feather="x-circle"></i>
+                                    </a>
+                                </div>
+                                <div class="postTitle">
+                                    LOREM IPSUM! DOLOR SIT AMET.
+                                </div>
+                                <div class="postMessage">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras dignissim libero est, sed commodo tellus luctus a. Quisque volutpat porta mi, sit amet semper lorem tincidunt et. Curabitur est dui, tempor a nulla eu.
+                                </div>
+                            </div>
+                            <div class="red closeBtn"></div>
+                        </div>
+
+                        <div class="postCard markedThread">
+                            <div class="postImages mTImg">
+                                <img src="/static/girl.jpg" alt="Post picture">
+                            </div>
+                            <div class="postTextContent mTText">
+                                <div class="mTMenu">
+                                    <p class="newRepliesAnnouncer">+3</p>
+                                    <a class="cardNavigate">on /po/</a>
+                                    <a class="closeBtn">
+                                        <i data-feather="x-circle"></i>
+                                    </a>
+                                </div>
+                                <div class="postTitle">
+                                    LOREM IPSUM! DOLOR SIT AMET.
+                                </div>
+                                <div class="postMessage">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras dignissim libero est, sed commodo tellus luctus a. Quisque volutpat porta mi, sit amet semper lorem tincidunt et. Curabitur est dui, tempor a nulla eu.
+                                </div>
+                            </div>
+                            <div class="red closeBtn"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                        <span class="cardHeader">
+                            <span class="green cardBullet"></span>
+                            <p class="cardName">Viewed threads</p>
+                        </span>
+                    <div class="cardContent">
+                        <div class="postCard markedThread">
+                            <div class="postImages mTImg">
+                                <img src="/static/girl.jpg" alt="Post picture">
+                            </div>
+                            <div class="postTextContent mTText">
+                                <div class="mTMenu">
+                                    <a class="cardNavigate">on /po/</a>
+                                    <a class="closeBtn">
+                                        <i data-feather="x-circle"></i>
+                                    </a>
+                                </div>
+                                <div class="postTitle">
+                                    LOREM IPSUM! DOLOR SIT AMET.
+                                </div>
+                                <div class="postMessage">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras dignissim libero est, sed commodo tellus luctus a. Quisque volutpat porta mi, sit amet semper lorem tincidunt et. Curabitur est dui, tempor a nulla eu.
+                                </div>
+                            </div>
+                            <div class="red closeBtn"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

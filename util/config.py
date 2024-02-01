@@ -2,7 +2,7 @@ import json
 import random
 
 def load_config(cfg_file):
-    config_file = open(cfg_file)
+    config_file = open(cfg_file, 'r')
     cfg = json.load(config_file)
     config_file.close()
 

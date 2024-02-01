@@ -1,4 +1,6 @@
 {
+  "logging": true,
+  "logs_path": ".logs",
   "title": "Flaskchan",
   "motd": ["Zhopa",
           "pisya",
