@@ -1,0 +1,13 @@
+/* Marble (light) theme colors */
+:root {
+    --white:       #000000;
+    --main:        #e5e5e5;
+    --subcolor:    #4b4b4b;
+    --dark:        #a8a8a8;
+    --less_darker: #cccccc;
+    --blue:        #2fa0cb;
+    --yellow:      #c9b32f;
+    --green:       #8abe43;
+    --red:         #ce4646;
+    --purple:      #a24fc5;
+}

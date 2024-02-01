@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}Flaskchan{% endblock %}
+
+{% block content %}
+    <div>
+        <header class="mainPageHeading">
+            <div class="naming">
+                <div class="boardTitle">{{ title }}</div>
+                <div class="boardSlogan">{{ motd }}</div>
+            </div>
+            <div class="boardSplash">
+                <a class="boardSplashLink">
+                    <img src="/static/boardSplash.jpg" alt="BoardSplash" class="boardSplashImage">
+                    <!-- <span class="boardSplashName">/soc/</span> -->
+                </a>
+            </div>
+        </header>
+
+        <main class="panels">
+            <div class="leftContent">
+                <div class="card">
+                    <span class="cardHeader">
+                        <span class="blue cardBullet"></span>
+                        <p class="cardName">Picture of the day</p>
+                        <a class="cardNavigate">on /a/</a>
+                    </span>
+                    <div class="cardContent">
+                        <img src="/static/girl.jpg">
+                    </div>
+                </div>
+                <div class="card">
+                    <span class="cardHeader">
+                        <span class="green cardBullet"></span>
+                        <p class="cardName">Thread of the day</p>
+                        <a class="cardNavigate">on /a/</a>
+                    </span>
+                    <div class="cardContent ToTD">
+                            <div class="postImages">
+                                <img src="/static/girl.jpg" alt="Post picture">
+                            </div>
+                            <div class="postTextContent mTText">
+                                <p class="postTitle">
+                                    LOREM IPSUM! DOLOR SIT AMET.
+                                </p>
+                                <p class="postMessage">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras dignissim libero est, sed commodo tellus luctus a. Quisque volutpat porta mi, sit amet semper lorem tincidunt et. Curabitur est dui, tempor a nulla eu.
+                                </p>
+                            </div>
+                    </div>
+                </div>
+                <div class="coffeechan#boardListCard" id="boards"></div>
+            </div>
+            <div class="rightContent">
+                <div class="card" style="margin-right: 0rem; flex-grow: 1;">
+                    <span class="cardHeader">
+                        <span class="red cardBullet"></span>
+                        <p class="cardName">Latest posts</p>
+                    </span>
+                    <div class="cardContent">
+                        <div class="postContainer coffeechan#posts">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+{% endblock %}

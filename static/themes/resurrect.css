@@ -1,0 +1,13 @@
+/* Basalt (main) theme colors */
+:root {
+    --white:       #c7dcd0;
+    --main:        #625565;
+    --subcolor:    #966c6c;
+    --dark:        #2e222f;
+    --less_darker: #3e3546;
+    --blue:        #4d65b4;
+    --yellow:      #f9c22b;
+    --green:       #239063;
+    --red:         #c32454;
+    --purple:      #905ea9;
+}
