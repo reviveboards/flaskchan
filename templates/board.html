@@ -4,8 +4,8 @@
     <div>
         <header class="mainPageHeading">
             <div class="naming">
-                <div class="boardTitle coffeechan#boardTagSlashed"></div>
-                <div class="boardSlogan coffeechan#boardName"></div>
+                <div class="boardTitle"><p>{{ this_board[6] }}</p></div>
+                <div class="boardSlogan">{{ this_board[7] }}</div>
             </div>
         </header>
 
@@ -16,7 +16,7 @@
                             <span class="red cardBullet"></span>
                             <p class="cardName">Post form</p>
                         </span>
-                    <form method="get" action="post" class="postFormHandler">
+                    <form method="post" class="postFormHandler">
                         <div class="typing">
                             <input type="text" name="postTitle" id="pH" placeholder="Title">
                             <textarea type="text" name="postText" id="pT" placeholder="Type your text here.."

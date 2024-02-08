@@ -48,10 +48,32 @@
                             </div>
                     </div>
                 </div>
-                <div class="coffeechan#boardListCard" id="boards"></div>
+                    <div id="boards">
+                        <div class="card">
+                            <span class="cardHeader">
+                                <span class="yellow cardBullet"></span>
+                                <p class="cardName">Boards list</p>
+                            </span>
+                                <div class="boardsList cardContent">
+                                    {% for category in categories %}
+                                    <div class="boardsListCategory">
+                                        <p class="">{{ category[1] }}</p>
+                                    </div>
+                                        {% for list_board in list_boards %}
+                                            {% if list_board[2] == category[0] %}
+                                                <a href="/{{ list_board[1] }}" class="boardTagSlashed">
+                                                    <span class="boardTagSlashed">/{{ list_board[1] }}/</span>
+                                                    <span>— {{ list_board[6] }}</span>
+                                                </a>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endfor %}
+                                </div>
+                        </div>
+                    </div>
             </div>
             <div class="rightContent">
-                <div class="card" style="margin-right: 0rem; flex-grow: 1;">
+                <div class="card" style="margin-right: 0; flex-grow: 1;">
                     <span class="cardHeader">
                         <span class="red cardBullet"></span>
                         <p class="cardName">Latest posts</p>
