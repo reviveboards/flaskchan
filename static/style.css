@@ -737,3 +737,7 @@ footer {
     text-align: center;
     color: var(--subcolor);
 }
+
+.engineVersion {
+    color: var(--blue);
+}

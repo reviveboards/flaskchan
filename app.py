@@ -10,6 +10,8 @@ date = datetime.date.today()
 
 config = load_config('config.json')
 
+version = "0.1a"
+
 if config['logging']:
     current_log = start_logging(config['logs_path']).name
     log_config(config, current_log)
@@ -39,7 +41,8 @@ def boards():
                            list_boards=list_boards,
                            date=date,
                            title=title,
-                           motd=motd)
+                           motd=motd,
+                           version=version)
 
 
 # @app.route('/board')
@@ -64,6 +67,20 @@ def create_post(post_title, parent_post, parent_board, post_text, post_images, b
     return redirect(f"/{board}")
 
 
+def get_board_posts(board_id):
+    conn = get_db_conn()
+    cur = conn.cursor()
+    cur.execute(f"SELECT * FROM post WHERE board_id = '{board_id}';")
+    board_posts = cur.fetchall()
+
+    cur.close()
+    conn.close()
+
+    request.method = 'GET'
+
+    return board_posts
+
+
 @app.route('/<string:board_tag>', methods=['GET', 'POST'])
 def get_board(board_tag):
     connection = get_db_conn()
@@ -82,13 +99,22 @@ def get_board(board_tag):
 
         create_post(title, parent_post, parent_board, post_text, images, this_board[1])
 
-    return render_template('board.html', date=date, this_board=this_board)
+
+
+    posts = get_board_posts(this_board[0])
+
+    return render_template('board.html',
+                           date=date,
+                           this_board=this_board,
+                           posts=posts,
+                           version=version)
 
 
 @app.route('/admin')
 def admin():
     return render_template('admin.html',
-                           date=date)
+                           date=date,
+                           version=version)
 
 
 if __name__ == '__main__':

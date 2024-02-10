@@ -4,7 +4,7 @@
     <div>
         <header class="mainPageHeading">
             <div class="naming">
-                <div class="boardTitle"><p>{{ this_board[6] }}</p></div>
+                <div class="boardTitle"><p>/{{ this_board[1] }}/ – {{ this_board[6] }}</p></div>
                 <div class="boardSlogan">{{ this_board[7] }}</div>
             </div>
         </header>
@@ -35,8 +35,38 @@
                     </form>
                 </div>
 
-                <div class="postContainer coffeechan#posts">
-
+                <div class="postContainer">
+                    {% for post in posts %}
+                        <div class="postCard">
+                            <div class="cardContent postContent">
+                                <div class="postImages">
+                                    <img src="/static/girl.jpg" alt="Post picture">
+                                </div>
+                                <div class="postTextContent">
+                                    <div class="postTitle">
+                                        {{ post[1] }}
+                                    </div>
+                                    <div class="postMessage">
+                                        {{ post[4] }}
+                                    </div>
+                                    <div class="postReplies">
+                                        <div class="postReplyID">
+                                            >>123123123
+                                        </div>
+                                        <div class="postReplyID">
+                                            >>123123123
+                                        </div>
+                                        <div class="postReplyID">
+                                            >>123123123
+                                        </div>
+                                        <div class="postReplyID">
+                                            >>123123123
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
             <div class="boardRightContent">
@@ -208,4 +238,10 @@
             </div>
         </div>
     </div>
+
+    <script>
+        if ( window.history.replaceState ) {
+            window.history.replaceState( null, null, window.location.href );
+        }
+    </script>
 {% endblock %}
