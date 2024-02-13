@@ -19,19 +19,104 @@ else:
     log_config(config, '')
 
 
+# ############ #
+# Some getters #
+# ############ #
+
+
+def get_categories():
+    conn = get_db_conn()
+    cur = conn.cursor()
+    cur.execute(f"SELECT * FROM category;")
+    cats = cur.fetchall()
+
+    cur.close()
+    conn.close()
+
+    return cats
+
+
+def get_boards():
+    conn = get_db_conn()
+    cur = conn.cursor()
+    cur.execute(f"SELECT * FROM board;")
+    all_boards = cur.fetchall()
+
+    cur.close()
+    conn.close()
+
+    return all_boards
+
+
+def get_board_posts(board_id):
+    conn = get_db_conn()
+    cur = conn.cursor()
+    cur.execute(f"SELECT * FROM post WHERE board_id = '{board_id}';")
+    board_posts = cur.fetchall()
+
+    cur.close()
+    conn.close()
+
+    return board_posts
+
+
+# ######## #
+# Creators #
+# ######## #
+
+
+def create_post(post_title, parent_post, parent_board, post_text, post_images, board):
+    conn = get_db_conn()
+    cur = conn.cursor()
+    cur.execute(f"INSERT INTO post (title, parent_id, board_id, text, timestamp) VALUES ("
+                f"'{post_title}', "
+                f"'{parent_post}', "
+                f"'{parent_board}', "
+                f"'{post_text}', "
+                f" CURRENT_TIMESTAMP);")
+    conn.commit()
+    cur.close()
+    conn.close()
+
+    return redirect(f"/{board}")
+
+
+def create_category(cat):
+    conn = get_db_conn()
+    cur = conn.cursor()
+    cur.execute(f"INSERT INTO category (name) VALUES ('{cat}');")
+
+    conn.commit()
+    cur.close()
+    conn.close()
+
+    return redirect('/admin')
+
+
+def create_board(b_tag, b_cat_id, b_name, b_desc):
+    conn = get_db_conn()
+    cur = conn.cursor()
+    cur.execute(f"INSERT INTO board (tag, category_id, name, description) VALUES ("
+                f"'{b_tag}',"
+                f"'{b_cat_id}',"
+                f"'{b_name}',"
+                f"'{b_desc}');")
+    conn.commit()
+    cur.close()
+    conn.close()
+
+    return redirect('/admin')
+
+
+# ###### #
+# Routes #
+# ###### #
+
 @app.route('/')
 def boards():
-    connection = get_db_conn()
-    cursor = connection.cursor()
-    cursor.execute('SELECT * FROM category;')
+    categories = get_categories()
 
-    categories = cursor.fetchall()
-
-    cursor.execute('SELECT * FROM board;')
-    list_boards = cursor.fetchall()
-
-    cursor.close()
-    connection.close()
+    list_boards = get_boards()
 
     title = config['title']
     motd = random_motd(config)
@@ -50,35 +135,6 @@ def boards():
 #     return render_template('board.html',
 #                            date=date)
 #
-
-def create_post(post_title, parent_post, parent_board, post_text, post_images, board):
-    conn = get_db_conn()
-    cur = conn.cursor()
-    cur.execute(f"INSERT INTO post (title, parent_id, board_id, text, timestamp) VALUES ("
-                f"'{post_title}', "
-                f"'{parent_post}', "
-                f"'{parent_board}', "
-                f"'{post_text}', "
-                f" CURRENT_TIMESTAMP);")
-    conn.commit()
-    cur.close()
-    conn.close()
-
-    return redirect(f"/{board}")
-
-
-def get_board_posts(board_id):
-    conn = get_db_conn()
-    cur = conn.cursor()
-    cur.execute(f"SELECT * FROM post WHERE board_id = '{board_id}';")
-    board_posts = cur.fetchall()
-
-    cur.close()
-    conn.close()
-
-    request.method = 'GET'
-
-    return board_posts
 
 
 @app.route('/<string:board_tag>', methods=['GET', 'POST'])
@@ -99,8 +155,6 @@ def get_board(board_tag):
 
         create_post(title, parent_post, parent_board, post_text, images, this_board[1])
 
-
-
     posts = get_board_posts(this_board[0])
 
     return render_template('board.html',
@@ -110,9 +164,23 @@ def get_board(board_tag):
                            version=version)
 
 
-@app.route('/admin')
+@app.route('/admin', methods=['GET', 'POST'])
 def admin():
+    admin_categories = get_categories()
+
+    if request.method == 'POST':
+        if request.form['categoryName'] is '':
+            n_b_tag = request.form['newBoardTag']
+            n_b_category = request.form['parentCategory']
+            n_b_name = request.form['newBoardName']
+            n_b_desc = request.form['newBoardDescription']
+            create_board(n_b_tag, n_b_category, n_b_name, n_b_desc)
+        else:
+            cat_name = request.form['categoryName']
+            create_category(cat_name)
+
     return render_template('admin.html',
+                           admin_categories=admin_categories,
                            date=date,
                            version=version)
 
