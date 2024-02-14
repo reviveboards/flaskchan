@@ -3,6 +3,7 @@ import datetime
 from util.config import load_config, random_motd
 from util.logging import *
 from util.db import *
+from util.forms import *
 
 app = Flask(__name__)
 
@@ -168,16 +169,7 @@ def get_board(board_tag):
 def admin():
     admin_categories = get_categories()
 
-    if request.method == 'POST':
-        if request.form['categoryName'] is '':
-            n_b_tag = request.form['newBoardTag']
-            n_b_category = request.form['parentCategory']
-            n_b_name = request.form['newBoardName']
-            n_b_desc = request.form['newBoardDescription']
-            create_board(n_b_tag, n_b_category, n_b_name, n_b_desc)
-        else:
-            cat_name = request.form['categoryName']
-            create_category(cat_name)
+    
 
     return render_template('admin.html',
                            admin_categories=admin_categories,

@@ -66,22 +66,23 @@
                         <div class="card" id="boardMgrCreateBoardForm" style="margin-left: 12px">
                             <form method="post" class="cardContent">
                                 <div>
-                                    <input type="text" name="newBoardName" placeholder="Board name" id="bN">
+                                    <input type="text" name="nBName" placeholder="Board name" id="bN">
                                 </div>
                                 <div>
-                                    <input type="text" name="newBoardDescription" placeholder="Board description" id="bD">
+                                    <input type="text" name="nBDescription" placeholder="Board description" id="bD">
                                 </div>
                                 <div>
-                                    <input type="text" name="newBoardTag" placeholder="Board tag" id="bL">
+                                    <input type="text" name="nBTag" placeholder="Board tag" id="bL">
                                 </div>
                                 <div>
                                     <label for="bC">Board category: </label>
-                                    <select name="parentCategory" id="bC">
+                                    <select name="nBParentCategory" id="bC">
                                         {% for admin_category in admin_categories %}
                                             <option value="{{ admin_category[0] }}">{{ admin_category[1] }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
+                                <button type="submit">Create board</button>
                                 <!-- Unsupported for now. -->
                                 <!-- <div>
                                     <label for="bSplash">Board header: </label><input type="file" name="header" id="bSplash">
@@ -110,7 +111,6 @@
                                             </label>
                                     </span>
                                 </div> -->
-                                <button type="submit">Create board</button>
                             </form>
                         </div>
                     </div>
