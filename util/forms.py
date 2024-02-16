@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, BooleanField, SelectField
+from wtforms import StringField, SubmitField, BooleanField, SelectField, TextAreaField
 from wtforms.validators import InputRequired, Length
 
 
@@ -20,5 +20,5 @@ class NewCategoryForm(FlaskForm):
 
 class NewPostForm(FlaskForm):
     post_title = StringField("Title", render_kw={"placeholder": "Title", "id": "pH"}, validators=[Length(min=0, max=150)])
-    post_text = StringField("Text", render_kw={"placeholder": "Text", "id": "pT"}, validators=[Length(min=0, max=450)])
+    post_text = TextAreaField("Text", render_kw={"placeholder": "Text", "id": "pT"}, validators=[Length(min=0, max=450)])
     create_post = SubmitField("+ Post")
