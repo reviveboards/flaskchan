@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 
+
 {% block content %}
     <div>
         <script src="/static/js/adminFE.js"></script>
@@ -56,62 +57,52 @@
 
                         <div class="card" id="boardMgrCreateCategoryForm" style="margin-left: 12px">
                             <form method="post" class="cardContent">
-                                <div>
-                                    <input type="text" name="categoryName" placeholder="Category name" id="cN">
-                                </div>
-                                <button type="submit">Create category</button>
+                                {{ n_b_form.hidden_tag() }}
+                                {{ n_c_form.category_name }}
+                                {{ n_c_form.create_category }}
                             </form>
                         </div>
 
                         <div class="card" id="boardMgrCreateBoardForm" style="margin-left: 12px">
-                            <form method="post" class="cardContent">
-                                <div>
-                                    <input type="text" name="nBName" placeholder="Board name" id="bN">
-                                </div>
-                                <div>
-                                    <input type="text" name="nBDescription" placeholder="Board description" id="bD">
-                                </div>
-                                <div>
-                                    <input type="text" name="nBTag" placeholder="Board tag" id="bL">
-                                </div>
-                                <div>
-                                    <label for="bC">Board category: </label>
-                                    <select name="nBParentCategory" id="bC">
-                                        {% for admin_category in admin_categories %}
-                                            <option value="{{ admin_category[0] }}">{{ admin_category[1] }}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
-                                <button type="submit">Create board</button>
-                                <!-- Unsupported for now. -->
-                                <!-- <div>
-                                    <label for="bSplash">Board header: </label><input type="file" name="header" id="bSplash">
-                                </div> -->
-                                <!-- What does this mean? -->
-                                <!-- <div class="togglers">
-                                    <span class="optionToggler">
-                                            Use CAPTCHA
-                                            <label class="switch">
-                                                <input type="checkbox">
-                                                <span class="slider round"></span>
-                                            </label>
-                                    </span>
-                                    <span class="optionToggler">
-                                            Use country flags
-                                            <label class="switch">
-                                                <input type="checkbox">
-                                                <span class="slider round"></span>
-                                            </label>
-                                    </span>
-                                    <span class="optionToggler">
-                                            NSFW board
-                                            <label class="switch">
-                                                <input type="checkbox">
-                                                <span class="slider round"></span>
-                                            </label>
-                                    </span>
-                                </div> -->
+
+                            <form action="" method="post" class="cardContent">
+                                {{ n_b_form.hidden_tag() }}
+                                {{ n_b_form.board_name }}
+                                {{ n_b_form.board_description }}
+                                {{ n_b_form.board_tag }}
+                                {{ n_b_form.board_category }}
+                                {{ n_b_form.create_board }}
                             </form>
+
+{#                                <!-- Unsupported for now. -->#}
+{#                                <!-- <div>#}
+{#                                    <label for="bSplash">Board header: </label><input type="file" name="header" id="bSplash">#}
+{#                                </div> -->#}
+{#                                <!-- What does this mean? -->#}
+{#                                <!-- <div class="togglers">#}
+{#                                    <span class="optionToggler">#}
+{#                                            Use CAPTCHA#}
+{#                                            <label class="switch">#}
+{#                                                <input type="checkbox">#}
+{#                                                <span class="slider round"></span>#}
+{#                                            </label>#}
+{#                                    </span>#}
+{#                                    <span class="optionToggler">#}
+{#                                            Use country flags#}
+{#                                            <label class="switch">#}
+{#                                                <input type="checkbox">#}
+{#                                                <span class="slider round"></span>#}
+{#                                            </label>#}
+{#                                    </span>#}
+{#                                    <span class="optionToggler">#}
+{#                                            NSFW board#}
+{#                                            <label class="switch">#}
+{#                                                <input type="checkbox">#}
+{#                                                <span class="slider round"></span>#}
+{#                                            </label>#}
+{#                                    </span>#}
+{#                                </div> -->#}
+{#                            </form>#}
                         </div>
                     </div>
                     <div class="cardContent userManager">

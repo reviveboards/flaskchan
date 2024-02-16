@@ -18,9 +18,10 @@
                         </span>
                     <form method="post" class="postFormHandler">
                         <div class="typing">
-                            <input type="text" name="postTitle" id="pH" placeholder="Title">
-                            <textarea type="text" name="postText" id="pT" placeholder="Type your text here.."
-                                      autofocus></textarea>
+                            {{ n_p_form.hidden_tag() }}
+
+                            {{ n_p_form.post_title }}
+                            {{ n_p_form.post_text }}
 
                             <div class="functional">
                                 <input type="password" name="tripcode" id="trip" placeholder="Tripcode (unnecessary)">
@@ -30,7 +31,7 @@
                         <div class="posting">
                             <input type="file" name="postAttach" id="pA"> <!--TODO: Drag&drop file upload-->
                             <progress value="10" max="100" class="postingProgress">10%</progress>
-                            <button type="submit">Post</button>
+                            {{ n_p_form.create_post }}
                         </div>
                     </form>
                 </div>
