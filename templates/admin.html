@@ -63,14 +63,33 @@
                             </form>
                         </div>
 
-                        <div class="card" id="boardMgrCreateBoardForm" style="margin-left: 12px">
+                        <div class="card" id="boardMgrCreateBoardForm" style="margin-left: 12px;">
 
-                            <form action="" method="post" class="cardContent">
+                            <form action="" method="post" class="cardContent" style="flex-wrap: wrap">
                                 {{ n_b_form.hidden_tag() }}
                                 {{ n_b_form.board_name }}
                                 {{ n_b_form.board_description }}
                                 {{ n_b_form.board_tag }}
                                 {{ n_b_form.board_category }}
+
+                                <div class="togglers">
+                                    <span class="optionToggler">
+                                            NSFW board
+                                            <label class="switch">
+                                                {{ n_b_form.is_nsfw }}
+                                                <span class="slider round"></span>
+                                            </label>
+                                    </span>
+
+                                    <span class="optionToggler">
+                                            Locked
+                                            <label class="switch">
+                                                {{ n_b_form.is_locked }}
+                                                <span class="slider round"></span>
+                                            </label>
+                                    </span>
+                                </div>
+
                                 {{ n_b_form.create_board }}
                             </form>
 
@@ -79,39 +98,16 @@
 {#                                    <label for="bSplash">Board header: </label><input type="file" name="header" id="bSplash">#}
 {#                                </div> -->#}
 {#                                <!-- What does this mean? -->#}
-{#                                <!-- <div class="togglers">#}
-{#                                    <span class="optionToggler">#}
-{#                                            Use CAPTCHA#}
-{#                                            <label class="switch">#}
-{#                                                <input type="checkbox">#}
-{#                                                <span class="slider round"></span>#}
-{#                                            </label>#}
-{#                                    </span>#}
-{#                                    <span class="optionToggler">#}
-{#                                            Use country flags#}
-{#                                            <label class="switch">#}
-{#                                                <input type="checkbox">#}
-{#                                                <span class="slider round"></span>#}
-{#                                            </label>#}
-{#                                    </span>#}
-{#                                    <span class="optionToggler">#}
-{#                                            NSFW board#}
-{#                                            <label class="switch">#}
-{#                                                <input type="checkbox">#}
-{#                                                <span class="slider round"></span>#}
-{#                                            </label>#}
-{#                                    </span>#}
-{#                                </div> -->#}
-{#                            </form>#}
                         </div>
-                    </div>
-                    <div class="cardContent userManager">
-                        Manage users
-                    </div>
-                    <div class="cardContent banManager">
-                        Manage bans
+{#                            </form>#}
                     </div>
                 </div>
+                <div class="cardContent userManager">
+                        Manage users
+                    </div>
+                <div class="cardContent banManager">
+                        Manage bans
+                    </div>
             </div>
         </main>
     </div>

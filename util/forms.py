@@ -8,6 +8,8 @@ class NewBoardForm(FlaskForm):
     board_description = StringField("Board description", render_kw={"placeholder": "Board description"}, validators=[Length(min=0, max=150)])
     board_tag = StringField("Board tag", render_kw={"placeholder": "Board tag"}, validators=[Length(min=1, max=5)])
     board_category = SelectField("Board category", coerce=int)
+    is_nsfw = BooleanField("NSFW")
+    is_locked = BooleanField("Locked")
 
     create_board = SubmitField("Create new board")
 

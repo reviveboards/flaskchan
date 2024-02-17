@@ -129,14 +129,16 @@ def create_category(cat):
     return redirect('/admin')
 
 
-def create_board(b_tag, b_cat_id, b_name, b_desc):
+def create_board(b_tag, b_cat_id, b_name, b_desc, nsfw, is_locked):
     conn = get_db_conn()
     cur = conn.cursor()
-    cur.execute(f"INSERT INTO board (tag, category_id, name, description) VALUES ("
+    cur.execute(f"INSERT INTO board (tag, category_id, name, description, nsfw, is_locked) VALUES ("
                 f"'{b_tag}',"
                 f"'{b_cat_id}',"
                 f"'{b_name}',"
-                f"'{b_desc}');")
+                f"'{b_desc}',"
+                f"{nsfw},"
+                f"{is_locked});")
     conn.commit()
     cur.close()
     conn.close()
@@ -216,8 +218,10 @@ def admin():
         b_desc = n_b_form.board_description.data
         b_tag = n_b_form.board_tag.data
         b_cat_id = n_b_form.board_category.data
+        is_nsfw = n_b_form.is_nsfw.data
+        is_locked = n_b_form.is_locked.data
 
-        create_board(b_tag, b_cat_id, b_name, b_desc)
+        create_board(b_tag, b_cat_id, b_name, b_desc, is_nsfw, is_locked)
     elif n_c_form.validate_on_submit():
         c_name = n_c_form.category_name.data
 
