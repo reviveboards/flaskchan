@@ -612,6 +612,19 @@ textarea {
     height: 10rem;
 }
 
+.postReply {
+    display: flex;
+    flex-direction: row;
+}
+
+.threadStrip {
+    min-height: 15vh;
+    background-color: var(--subcolor);
+    padding: 0 1px 0 1px;
+    margin-left: 0.8rem;
+    margin-right: 1.6rem;
+}
+
 /*Admin panel*/
 
 .adminList {
@@ -715,7 +728,7 @@ textarea {
     margin-left: 5px;
 }
 
-.mTMenu {
+.postMenu {
     display: flex;
     flex-direction: row;
     align-items: center;

@@ -1,9 +1,10 @@
 {
   "logging": false,
   "logs_path": ".logs",
-  "title": "Flaskchan",
+  "title": "sdghdr",
   "motd": ["Zhopa",
           "pisya",
           "yaica",
-          "kakashki"]
+          "kakashki",
+          "v rossiyskom monitore nashli kitayskiy chip"]
 }

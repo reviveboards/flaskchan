@@ -96,6 +96,31 @@ def get_board_posts(board_id):
     return board_posts
 
 
+def get_op(post_id):
+    conn = get_db_conn()
+    cur = conn.cursor()
+    cur.execute(f"SELECT * FROM post WHERE id = '{post_id}'")
+    op = cur.fetchone()
+
+    cur.close()
+    conn.close()
+
+    return op
+
+
+def get_thread(board_tag, parent):
+    conn = get_db_conn()
+    cur = conn.cursor()
+    cur.execute(f"SELECT * FROM post JOIN board ON post.board_id = board.id WHERE tag = '{board_tag}' AND parent_id = '{parent}';")
+
+    p_children = cur.fetchall()
+
+    cur.close()
+    conn.close()
+
+    return p_children
+
+
 # ######## #
 # Creators #
 # ######## #
@@ -201,6 +226,22 @@ def get_board(board_tag):
                            this_board=tb,
                            n_p_form=n_p_form,
                            posts=posts,
+                           version=version)
+
+
+@app.route('/<string:board_tag>/<int:op_id>', methods=['GET', 'POST'])
+def thread(board_tag, op_id):
+
+    n_p_form = NewPostForm()
+
+    op = get_op(op_id)
+    replies = get_thread(board_tag, op[0])
+
+    return render_template('thread.html',
+                           op=op,
+                           replies=replies,
+                           n_p_form=n_p_form,
+                           date=date,
                            version=version)
 
 

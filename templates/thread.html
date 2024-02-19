@@ -1,13 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div>
-        <header class="mainPageHeading">
-            <div class="naming">
-                <div class="boardTitle"><p>/{{ this_board[1] }}/ – {{ this_board[6] }}</p></div>
-                <div class="boardSlogan">{{ this_board[7] }}</div>
-            </div>
-        </header>
+        <div>
 
         <div class="panels">
             <div class="boardLeftContent">
@@ -37,7 +31,6 @@
                 </div>
 
                 <div class="postContainer">
-                    {% for post in posts %}
                         <div class="postCard">
                             <div class="cardContent postContent">
                                 <div class="postImages">
@@ -46,17 +39,17 @@
                                 <div class="postTextContent">
 
                                     <div class="postMenu">
-                                        <div>
-                                            <a href="/{{ this_board[1] }}/{{ post[0] }}" class="postID cardNavigate">{{ post[0] }}</a>
+                                        <div class="postID cardNavigate">
+                                            <a>{{ op[0] }}</a>
                                         </div>
                                     </div>
 
                                     <div class="postTitle">
-                                        {{ post[1] }}
+                                        {{ op[1] }}
                                     </div>
 
                                     <div class="postMessage">
-                                        {{ post[4] }}
+                                        {{ op[4] }}
                                     </div>
                                     <div class="postReplies">
                                         <div class="postReplyID">
@@ -75,6 +68,49 @@
                                 </div>
                             </div>
                         </div>
+
+                    {% for reply in replies %}
+                        <div class="postReply">
+                            <span class="threadStrip"></span>
+                            <div class="postCard postReply">
+                                <div class="cardContent postContent">
+                                    <div class="postImages">
+                                        <img src="/static/girl.jpg" alt="Post picture">
+                                    </div>
+                                    <div class="postTextContent">
+
+                                        <div class="postMenu">
+                                            <div class="postID cardNavigate">
+                                                <a>{{ reply[0] }}</a>
+                                            </div>
+                                        </div>
+
+                                        <div class="postTitle">
+                                            {{ reply[1] }}
+                                        </div>
+
+                                        <div class="postMessage">
+                                            {{ reply[4] }}
+                                        </div>
+                                        <div class="postReplies">
+                                            <div class="postReplyID">
+                                                >>123123123
+                                            </div>
+                                            <div class="postReplyID">
+                                                >>123123123
+                                            </div>
+                                            <div class="postReplyID">
+                                                >>123123123
+                                            </div>
+                                            <div class="postReplyID">
+                                                >>123123123
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     {% endfor %}
                 </div>
             </div>
@@ -84,63 +120,6 @@
                             <span class="blue cardBullet"></span>
                             <p class="cardName">Board of the day</p>
                         </span>
-                    <div class="cardContent">
-                        <div class="BoTD">
-                            <p class="BoTDName">/b/</p>
-                            <p>Posts per hour: 69</p>
-                            <p>Unique Users: 420</p>
-                            <p>Users per hour:</p>
-                        </div>
-
-                        <canvas id="pph-chart"></canvas>
-    <!--                    Script for charts. Too stupid, must be rewritten.-->
-    <!--                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>-->
-    <!--                    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-gradient"></script>-->
-    <!--                    <script>-->
-    <!--                        const ctx = document.getElementById('pph-chart');-->
-    <!--                        new Chart(ctx, {-->
-    <!--                            type: 'bar',-->
-    <!--                            data: {-->
-    <!--                                labels: ['6h', '5h', '4h', '3h', '2h', '1h'],-->
-    <!--                                datasets: [{-->
-    <!--                                    label: '',-->
-    <!--                                    data: [12, 19, 3, 5, 2, 3],-->
-    <!--                                    barThickness: 5,-->
-    <!--                                    borderRadius: 5,-->
-    <!--                                    borderWidth: 2,-->
-    <!--                                    borderColor: 'rgba(122,202,85,1)',-->
-    <!--                                    gradient: {-->
-    <!--                                        backgroundColor: {-->
-    <!--                                            axis: 'y',-->
-    <!--                                            colors: {-->
-    <!--                                                0: 'rgba(124,124,124,0.33)',-->
-    <!--                                                95: 'rgba(122,202,85,1)'-->
-    <!--                                            }-->
-    <!--                                        }-->
-    <!--                                    }-->
-    <!--                                }]-->
-    <!--                            },-->
-    <!--                            options: {-->
-    <!--                                plugins: {-->
-    <!--                                    legend: {-->
-    <!--                                        display: false,-->
-    <!--                                    },-->
-    <!--                                    scales: {-->
-    <!--                                        y: {-->
-    <!--                                            beginAtZero: true-->
-    <!--                                        }-->
-    <!--                                    },-->
-
-    <!--                                }-->
-    <!--                            },-->
-    <!--                            plugins: [-->
-    <!--                                window['chartjs-plugin-gradient']-->
-    <!--                            ]-->
-    <!--                        });-->
-    <!--                    </script>-->
-
-
-                    </div>
                 </div>
                 <div class="card">
                         <span class="cardHeader">
@@ -253,5 +232,4 @@
             window.history.replaceState( null, null, window.location.href );
         }
     </script>
-
 {% endblock %}
