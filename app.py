@@ -1,12 +1,13 @@
 from flask import Flask, render_template, request, redirect, url_for
 
+import re
+
 from flask_wtf import CSRFProtect
 
 from util.config import load_config, random_motd
 from util.logging import *
 from util.db import *
 from util.forms import *
-
 
 app = Flask(__name__)
 
@@ -24,7 +25,6 @@ config = load_config('config.json')
 
 version = "0.1a"
 
-
 if config['logging']:
     current_log = start_logging(config['logs_path']).name
     log_config(config, current_log)
@@ -32,6 +32,7 @@ else:
     log_config(config, '')
 
 csrf.init_app(app)
+
 
 # ############ #
 # Some getters #
@@ -76,7 +77,8 @@ def get_this_board(t):
 def get_latest_posts():
     conn = get_db_conn()
     cur = conn.cursor()
-    cur.execute('SELECT * FROM post JOIN board ON post.board_id = board.id WHERE board.nsfw = false ORDER BY timestamp DESC LIMIT 8')
+    cur.execute(
+        'SELECT * FROM post JOIN board ON post.board_id = board.id WHERE board.nsfw = false ORDER BY timestamp DESC LIMIT 8')
     latest_posts = cur.fetchall()
     cur.close()
     conn.close()
@@ -111,7 +113,8 @@ def get_op(post_id):
 def get_thread(board_tag, parent):
     conn = get_db_conn()
     cur = conn.cursor()
-    cur.execute(f"SELECT * FROM post JOIN board ON post.board_id = board.id WHERE tag = '{board_tag}' AND parent_id = '{parent}';")
+    cur.execute(
+        f"SELECT * FROM post JOIN board ON post.board_id = board.id WHERE tag = '{board_tag}' AND parent_id = '{parent}';")
 
     p_children = cur.fetchall()
 
@@ -205,19 +208,20 @@ def boards():
 
 @app.route('/<string:board_tag>', methods=['GET', 'POST'])
 def get_board(board_tag):
-
     tb = get_this_board(board_tag)
 
     n_p_form = NewPostForm()
 
     if n_p_form.validate_on_submit():
         p_title = n_p_form.post_title.data
-        parent_post = 0
         parent_board = tb[0]
         p_text = n_p_form.post_text.data
+
+        reply_pattern = r'^(?:>>)(\d+)'
+        parent_post = re.search(reply_pattern, p_text)
         images = [1, 1, 1]
 
-        create_post(p_title, parent_post, parent_board, p_text, images, tb[1])
+        create_post(p_title, parent_post[1], parent_board, p_text, images, tb[1])
 
     posts = get_board_posts(tb[0])
 
@@ -231,7 +235,6 @@ def get_board(board_tag):
 
 @app.route('/<string:board_tag>/<int:op_id>', methods=['GET', 'POST'])
 def thread(board_tag, op_id):
-
     n_p_form = NewPostForm()
 
     op = get_op(op_id)

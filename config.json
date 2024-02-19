@@ -1,7 +1,7 @@
 {
   "logging": false,
   "logs_path": ".logs",
-  "title": "sdghdr",
+  "title": "Flaskchan",
   "motd": ["Zhopa",
           "pisya",
           "yaica",
