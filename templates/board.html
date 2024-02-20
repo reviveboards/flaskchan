@@ -38,43 +38,91 @@
 
                 <div class="postContainer">
                     {% for post in posts %}
-                        <div class="postCard">
-                            <div class="cardContent postContent">
-                                <div class="postImages">
-                                    <img src="/static/girl.jpg" alt="Post picture">
-                                </div>
-                                <div class="postTextContent">
-
-                                    <div class="postMenu">
-                                        <div>
-                                            <a href="/{{ this_board[1] }}/{{ post[0] }}" class="postID cardNavigate">{{ post[0] }}</a>
-                                        </div>
+                        <div class="postWithReplies">
+                            <div class="postCard">
+                                <div class="cardContent postContent">
+                                    <div class="postImages">
+                                        <img src="/static/girl.jpg" alt="Post picture">
                                     </div>
+                                    <div class="postTextContent">
 
-                                    <div class="postTitle">
-                                        {{ post[1] }}
-                                    </div>
+                                        <div class="postMenu">
+                                            <div>
+                                                <a href="/{{ this_board[1] }}/{{ post[0] }}" class="postID cardNavigate">{{ post[0] }}</a>
+                                            </div>
+                                        </div>
 
-                                    <div class="postMessage">
-                                        {{ post[4] }}
-                                    </div>
-                                    <div class="postReplies">
-                                        <div class="postReplyID">
-                                            >>123123123
+                                        <div class="postTitle">
+                                            {{ post[1] }}
                                         </div>
-                                        <div class="postReplyID">
-                                            >>123123123
+
+                                        <div class="postMessage">
+                                            {{ post[4] }}
                                         </div>
-                                        <div class="postReplyID">
-                                            >>123123123
-                                        </div>
-                                        <div class="postReplyID">
-                                            >>123123123
+                                        <div class="postReplies">
+                                            <div class="postReplyID">
+                                                >>123123123
+                                            </div>
+                                            <div class="postReplyID">
+                                                >>123123123
+                                            </div>
+                                            <div class="postReplyID">
+                                                >>123123123
+                                            </div>
+                                            <div class="postReplyID">
+                                                >>123123123
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            {% for latest_reply in latest_replies %}
+                                {% if latest_reply[2] == post[0] %}
+{#                                    Feels like some yandere-code. Innit?#}
+                                    <div class="postReply">
+                                        <span class="threadStrip"></span>
+                                        <div class="postCard postReply">
+                                            <div class="cardContent postContent">
+                                                <div class="postImages">
+                                                    <img src="/static/girl.jpg" alt="Post picture">
+                                                </div>
+                                                <div class="postTextContent">
+
+                                                    <div class="postMenu">
+                                                        <div class="postID cardNavigate">
+                                                            <a>{{ latest_reply[0] }}</a>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="postTitle">
+                                                        {{ latest_reply[1] }}
+                                                    </div>
+
+                                                    <div class="postMessage">
+                                                        {{ latest_reply[4] }}
+                                                    </div>
+                                                    <div class="postReplies">
+                                                        <div class="postReplyID">
+                                                            >>123123123
+                                                        </div>
+                                                        <div class="postReplyID">
+                                                            >>123123123
+                                                        </div>
+                                                        <div class="postReplyID">
+                                                            >>123123123
+                                                        </div>
+                                                        <div class="postReplyID">
+                                                            >>123123123
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
                         </div>
+
                     {% endfor %}
                 </div>
             </div>

@@ -89,7 +89,7 @@ def get_latest_posts():
 def get_board_posts(board_id):
     conn = get_db_conn()
     cur = conn.cursor()
-    cur.execute(f"SELECT * FROM post WHERE board_id = '{board_id}';")
+    cur.execute(f"SELECT * FROM post WHERE board_id = '{board_id}' AND parent_id = 0 ORDER BY timestamp DESC;")
     board_posts = cur.fetchall()
 
     cur.close()
@@ -101,13 +101,24 @@ def get_board_posts(board_id):
 def get_op(post_id):
     conn = get_db_conn()
     cur = conn.cursor()
-    cur.execute(f"SELECT * FROM post WHERE id = '{post_id}'")
+    cur.execute(f"SELECT * FROM post WHERE id = '{post_id}' AND parent_id = 0")
     op = cur.fetchone()
 
     cur.close()
     conn.close()
 
     return op
+
+def get_replies(board_tag, parent):
+    conn = get_db_conn()
+    cur = conn.cursor()
+    cur.execute(f"SELECT * FROM post JOIN board ON post.board_id = board.id WHERE tag = '{board_tag}' AND parent_id = '{parent}' ORDER BY timestamp DESC LIMIT 2;")
+    replies = cur.fetchall()
+
+    cur.close()
+    conn.close()
+
+    return replies
 
 
 def get_thread(board_tag, parent):
@@ -221,15 +232,24 @@ def get_board(board_tag):
         parent_post = re.search(reply_pattern, p_text)
         images = [1, 1, 1]
 
-        create_post(p_title, parent_post[1], parent_board, p_text, images, tb[1])
+        if parent_post is None:
+            create_post(p_title, 0, parent_board, p_text, images, tb[1])
+        else:
+            create_post(p_title, parent_post[1], parent_board, p_text, images, tb[1])
 
     posts = get_board_posts(tb[0])
+
+    global latest_replies
+
+    for post in posts:
+        latest_replies = get_replies(tb[1], post[0])
 
     return render_template('board.html',
                            date=date,
                            this_board=tb,
                            n_p_form=n_p_form,
                            posts=posts,
+                           latest_replies=latest_replies,
                            version=version)
 
 
