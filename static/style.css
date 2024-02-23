@@ -326,6 +326,11 @@ a:visited {
     background-color: var(--dark);
 }
 
+.timestamp {
+    font-size: 12px;
+    color: var(--subcolor);
+}
+
 .boardSplashName {
     position: absolute;
     font-size: 3rem;

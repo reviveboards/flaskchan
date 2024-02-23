@@ -120,6 +120,17 @@ def get_replies(board_tag, parent):
 
     return replies
 
+def get_reply_ids(parent):
+    conn = get_db_conn()
+    cur = conn.cursor()
+    cur.execute(f"SELECT id FROM post WHERE parent_id = '{parent}'")
+    reply_ids = cur.fetchall()
+
+    cur.close()
+    conn.close()
+
+    return reply_ids
+
 
 def get_thread(board_tag, parent):
     conn = get_db_conn()
@@ -138,6 +149,14 @@ def get_thread(board_tag, parent):
 # ######## #
 # Creators #
 # ######## #
+
+def update_reply_id(op):
+    conn = get_db_conn()
+    cur = conn.cursor()
+    cur.execute(f"UPDATE post SET child_ids = array_append(child_ids, {{(SELECT id FROM post WHERE parent_id = '{op}')}}) WHERE id = '{op}'")
+    conn.commit()
+    cur.close()
+    conn.close()
 
 
 def create_post(post_title, parent_post, parent_board, post_text, post_images, board):
@@ -233,9 +252,10 @@ def get_board(board_tag):
         images = [1, 1, 1]
 
         if parent_post is None:
-            create_post(p_title, 0, parent_board, p_text, images, tb[1])
+            create_post(p_title, 0, parent_board, p_text, images, tb[0])
         else:
-            create_post(p_title, parent_post[1], parent_board, p_text, images, tb[1])
+            create_post(p_title, parent_post[1], parent_board, p_text, images, tb[0])
+            #update_reply_id(parent_post[1])
 
     posts = get_board_posts(tb[0])
 

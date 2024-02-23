@@ -47,9 +47,8 @@
                                     <div class="postTextContent">
 
                                         <div class="postMenu">
-                                            <div>
-                                                <a href="/{{ this_board[1] }}/{{ post[0] }}" class="postID cardNavigate">{{ post[0] }}</a>
-                                            </div>
+                                            <p class="timestamp">{{ post[6] }}</p>
+                                            <a href="/{{ this_board[1] }}/{{ post[0] }}" class="postID cardNavigate">{{ post[0] }}</a>
                                         </div>
 
                                         <div class="postTitle">
@@ -89,9 +88,8 @@
                                                 <div class="postTextContent">
 
                                                     <div class="postMenu">
-                                                        <div class="postID cardNavigate">
-                                                            <a>{{ latest_reply[0] }}</a>
-                                                        </div>
+                                                        <p class="timestamp">{{ latest_reply[6] }}</p>
+                                                        <a class="postID cardNavigate">{{ latest_reply[0] }}</a>
                                                     </div>
 
                                                     <div class="postTitle">
