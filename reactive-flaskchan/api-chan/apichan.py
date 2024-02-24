@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, redirect, jsonify
 
 import re
 
@@ -21,7 +21,7 @@ date = datetime.date.today()
 
 csrf = CSRFProtect()
 
-config = load_config('config.json')
+config = load_config('../../config.json')
 
 version = "0.1a"
 
@@ -109,16 +109,19 @@ def get_op(post_id):
 
     return op
 
+
 def get_replies(board_tag, parent):
     conn = get_db_conn()
     cur = conn.cursor()
-    cur.execute(f"SELECT * FROM post JOIN board ON post.board_id = board.id WHERE tag = '{board_tag}' AND parent_id = '{parent}' ORDER BY timestamp DESC LIMIT 2;")
+    cur.execute(
+        f"SELECT * FROM post JOIN board ON post.board_id = board.id WHERE tag = '{board_tag}' AND parent_id = '{parent}' ORDER BY timestamp DESC LIMIT 2;")
     replies = cur.fetchall()
 
     cur.close()
     conn.close()
 
     return replies
+
 
 def get_reply_ids(parent):
     conn = get_db_conn()
@@ -153,7 +156,8 @@ def get_thread(board_tag, parent):
 def update_reply_id(op):
     conn = get_db_conn()
     cur = conn.cursor()
-    cur.execute(f"UPDATE post SET child_ids = array_append(child_ids, {{(SELECT id FROM post WHERE parent_id = '{op}')}}) WHERE id = '{op}'")
+    cur.execute(
+        f"UPDATE post SET child_ids = array_append(child_ids, {{(SELECT id FROM post WHERE parent_id = '{op}')}}) WHERE id = '{op}'")
     conn.commit()
     cur.close()
     conn.close()
@@ -219,14 +223,13 @@ def boards():
     title = config['title']
     motd = random_motd(config)
 
-    return render_template('boards.html',
-                           categories=categories,
-                           list_boards=list_boards,
-                           p_latest=p_latest,
-                           date=date,
-                           title=title,
-                           motd=motd,
-                           version=version)
+    return jsonify(categories=categories,
+                   list_boards=list_boards,
+                   p_latest=p_latest,
+                   date=date,
+                   title=title,
+                   motd=motd,
+                   version=version)
 
 
 # @app.route('/board')
@@ -255,7 +258,7 @@ def get_board(board_tag):
             create_post(p_title, 0, parent_board, p_text, images, tb[0])
         else:
             create_post(p_title, parent_post[1], parent_board, p_text, images, tb[0])
-            #update_reply_id(parent_post[1])
+            # update_reply_id(parent_post[1])
 
     posts = get_board_posts(tb[0])
 
@@ -264,13 +267,12 @@ def get_board(board_tag):
     for post in posts:
         latest_replies = get_replies(tb[1], post[0])
 
-    return render_template('board.html',
-                           date=date,
-                           this_board=tb,
-                           n_p_form=n_p_form,
-                           posts=posts,
-                           latest_replies=latest_replies,
-                           version=version)
+    return jsonify(date=date,
+                   this_board=tb,
+                   n_p_form=n_p_form,
+                   posts=posts,
+                   latest_replies=latest_replies,
+                   version=version)
 
 
 @app.route('/<string:board_tag>/<int:op_id>', methods=['GET', 'POST'])
@@ -280,12 +282,11 @@ def thread(board_tag, op_id):
     op = get_op(op_id)
     replies = get_thread(board_tag, op[0])
 
-    return render_template('thread.html',
-                           op=op,
-                           replies=replies,
-                           n_p_form=n_p_form,
-                           date=date,
-                           version=version)
+    return jsonify(op=op,
+                   replies=replies,
+                   n_p_form=n_p_form,
+                   date=date,
+                   version=version)
 
 
 @app.route('/admin', methods=['GET', 'POST'])
@@ -311,12 +312,11 @@ def admin():
 
         create_category(c_name)
 
-    return render_template('admin.html',
-                           admin_categories=admin_categories,
-                           date=date,
-                           version=version,
-                           n_b_form=n_b_form,
-                           n_c_form=n_c_form)
+    return jsonify(admin_categories=admin_categories,
+                   date=date,
+                   version=version,
+                   n_b_form=n_b_form,
+                   n_c_form=n_c_form)
 
 
 if __name__ == '__main__':

@@ -1,0 +1,2 @@
+FLASK_APP=apichan.py
+FLASK_ENV=development
